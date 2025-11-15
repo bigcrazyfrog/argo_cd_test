@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test-ui
+  namespace: test-ui
+  labels:
+    app: test-ui
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: test-ui
+  template:
+    metadata:
+      labels:
+        app: test-ui
+    spec:
+      containers:
+        - name: web
+          image: frogfrog243/test_ui:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8000        # Порт внутри контейнера (web-интерфейс)
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"

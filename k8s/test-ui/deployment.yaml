@@ -18,7 +18,7 @@ spec:
       containers:
         - name: web
           image: frogfrog243/test_ui:latest
-          imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
           ports:
             - containerPort: 8000        # Порт внутри контейнера (web-интерфейс)
           resources:

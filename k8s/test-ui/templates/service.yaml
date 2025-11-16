@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "test-ui.fullname" . }}
+  labels:
+    app: {{ include "test-ui.name" . }}
+spec:
+  type: {{ .Values.service.type }}
+  selector:
+    app: {{ include "test-ui.name" . }}
+  ports:
+    - name: http
+      port: {{ .Values.service.port }}
+      targetPort: {{ .Values.service.targetPort }}

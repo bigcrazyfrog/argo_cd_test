@@ -1,0 +1,39 @@
+replicaCount: 1
+
+image:
+  repository: frogfrog243/test_ui
+  tag: "latest"
+  pullPolicy: Always
+
+service:
+  type: ClusterIP
+  port: 80
+  targetPort: 8000
+
+ingress:
+  enabled: true
+  className: nginx
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+  hosts:
+    - host: testui.mycum.ru
+      paths:
+        - path: /
+          pathType: Prefix
+  tls:
+    - secretName: testui-tls
+      hosts:
+        - testui.mycum.ru
+
+resources:
+  requests:
+    cpu: "100m"
+    memory: "128Mi"
+  limits:
+    cpu: "500m"
+    memory: "512Mi"
+
+networkPolicy:
+  enabled: false
+  allowedEgressPorts:
+    - 443
